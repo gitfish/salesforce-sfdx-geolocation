@@ -15,6 +15,8 @@ steps:
     versionSpec: '8.x' # replace this value with the version that you need for your project
 - script: |
     sudo npm install --global sfdx-cli
+    echo '$env:JWT_LEY' > jwt.key
+    sfdx force:auth:jwt:grant --clientid 3MVG9pe2TCoA1Pf6I1c1KhtCP9xk.9gbX9NP41gdQDTtVvfUOJPg8P1PnrGJ4wd7y1eAEIin9epeViKJJqXy7 --username mfisher@dev.one --setdefaultdevhubusername --setalias DevHub --jwtkeyfile jwt.key
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
   env:
