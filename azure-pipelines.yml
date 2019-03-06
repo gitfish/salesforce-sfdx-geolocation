@@ -20,6 +20,7 @@ steps:
     sudo npm install --global sfdx-cli
     echo "JWT Key: $JWT_KEY"
     sudo echo "$JWT_KEY" > ./jwt.key
+    sudo cat ./jwt.key
     sudo sfdx force:auth:jwt:grant --clientid 3MVG9pe2TCoA1Pf6I1c1KhtCP9xk.9gbX9NP41gdQDTtVvfUOJPg8P1PnrGJ4wd7y1eAEIin9epeViKJJqXy7 --username mfisher@dev.one --setdefaultdevhubusername --setalias DevHub --jwtkeyfile ./jwt.key
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
