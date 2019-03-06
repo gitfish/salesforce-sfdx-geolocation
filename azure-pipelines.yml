@@ -16,9 +16,19 @@ steps:
 - task: DownloadSecureFile@1
   inputs:
     secureFile: "jwt.key"
-- script: |
+- script:
     sudo npm install --global sfdx-cli
-    echo "JWT Key File Location: $DOWNLOADSECUREFILE_SECUREFILEPATH"
+  displayName: "Install Salesforce CLI"
+- script:
     sudo sfdx force:auth:jwt:grant --clientid 3MVG9pe2TCoA1Pf6I1c1KhtCP9xk.9gbX9NP41gdQDTtVvfUOJPg8P1PnrGJ4wd7y1eAEIin9epeViKJJqXy7 --username mfisher@dev.one --setdefaultdevhubusername --setalias DevHub --jwtkeyfile $DOWNLOADSECUREFILE_SECUREFILEPATH
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  displayName: "Authorise Salesforce DevHub"
+- script:
+    sudo sfdx force:org:create -s -f config/project-scratch-def.json -a CI
+  displayName: "Create Scratch Org"
+- script:
+    sudo sfdx force:source:push
+  displayName: "Push Source to Scratch Org"
+- script:
+    sudo sfdx force:apex:test:run -l RunLocalTests
+  displayName: "Run Tests"
+  
