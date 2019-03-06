@@ -13,10 +13,12 @@ steps:
 - task: NodeTool@0 
   inputs:
     versionSpec: '8.x' # replace this value with the version that you need for your project
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: jwt.key
 - script: |
     sudo npm install --global sfdx-cli
-    sudo echo $(sfdx.jwt.auth.key) > ./jwt.key
-    sudo ls -al ./jwt.key
-    sudo sfdx force:auth:jwt:grant --clientid 3MVG9pe2TCoA1Pf6I1c1KhtCP9xk.9gbX9NP41gdQDTtVvfUOJPg8P1PnrGJ4wd7y1eAEIin9epeViKJJqXy7 --username mfisher@dev.one --setdefaultdevhubusername --setalias DevHub --jwtkeyfile ./jwt.key
+    echo "JWT Key File Location: $DOWNLOADSECUREFILE_SECUREFILEPATH"
+    sudo sfdx force:auth:jwt:grant --clientid 3MVG9pe2TCoA1Pf6I1c1KhtCP9xk.9gbX9NP41gdQDTtVvfUOJPg8P1PnrGJ4wd7y1eAEIin9epeViKJJqXy7 --username mfisher@dev.one --setdefaultdevhubusername --setalias DevHub --jwtkeyfile $DOWNLOADSECUREFILE_SECUREFILEPATH
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
