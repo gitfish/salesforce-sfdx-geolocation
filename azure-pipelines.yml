@@ -17,3 +17,5 @@ steps:
     sudo npm install --global sfdx-cli
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+  env:
+    JWT_KEY: $(sfdx.jwt.auth.key)
